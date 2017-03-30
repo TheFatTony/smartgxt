@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<appication>
+		<configuration>com.smartgxt.rctest.server.TestConfig</configuration>
+		<log_dir>C:/Work/Projects/home/RcTest.jee/RcTest/war</log_dir>
+		<max_active_threads>1</max_active_threads>
+		<max_threads_wait>5</max_threads_wait>
+		<buffers_size>524288</buffers_size>
+		<threads_wait_time>1000</threads_wait_time>
+		<session_timeout>120</session_timeout>
+		<kill_task_interval>60</kill_task_interval>
+	</appication>
+	<oracle default="home">
+        <connection connectionName="esls">jdbc:oracle:thin:@192.168.90.26:1521:esls</connection>
+        <connection connectionName="esls_oci">jdbc:oracle:oci:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.90.26)(PORT=1521)))(CONNECT_DATA=(SID=esls)(SERVER=DEDICATED)))</connection>
+		<connection connectionName="home">jdbc:oracle:thin:@192.168.56.56:1521:orcl</connection>
+		<connection connectionName="home_oci">jdbc:oracle:oci:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.56.56)(PORT=1521)))(CONNECT_DATA=(SID=orcl)(SERVER=DEDICATED)))</connection>
+	</oracle>
+</config>

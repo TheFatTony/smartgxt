@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>smartgxt-parent</artifactId>
+		<groupId>com.smartgxt</groupId>
+		<version>0.0.2</version>
+	</parent>
+	<groupId>com.smartgxt.showcase</groupId>
+	<artifactId>com.smartgxt.showcase</artifactId>
+	<name>com.smartgxt.showcase</name>
+	<packaging>war</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>com.smartgxt</groupId>
+			<artifactId>com.smartgxt</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sencha.gxt</groupId>
+			<artifactId>uibinder-bridge</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>smartgxt-showcase</finalName>
+		<outputDirectory>target/smartgxt-showcase/WEB-INF/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/webapp</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<App-Name>smartgxt-showcase</App-Name>
+							<Implementation-Version>@version@</Implementation-Version>
+							<Config-Path>config.xml</Config-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<configuration>
+					<extraJvmArgs>-Duser.language=en -Duser.region=us</extraJvmArgs>
+					<runTarget>index.html</runTarget>
+					<hostedWebapp>target/www</hostedWebapp>
+					<compileReport>true</compileReport>
+					<module>com.smartgxt.showcase.Showcase</module>
+
+					<!-- <logLevel>INFO</logLevel> -->
+					<!-- <style>${gwt.style}</style> -->
+
+					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+					<!-- <server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server> -->
+					<copyWebapp>true</copyWebapp>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>remove-gwt-client-classes</id>
+						<phase>package</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</directory>
+									<includes>
+										<include>gwt-user*jar</include>
+									</includes>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-antrun-plugin</artifactId> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <phase>prepare-package</phase> -->
+			<!-- <configuration> -->
+			<!-- <tasks> -->
+			<!-- <replace token="my.package.prefix." value="" -->
+			<!-- dir="target/classes"> -->
+			<!-- <include name="**/*.java" /> -->
+			<!-- </replace> -->
+			<!-- </tasks> -->
+			<!-- </configuration> -->
+			<!-- <goals> -->
+			<!-- <goal>run</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

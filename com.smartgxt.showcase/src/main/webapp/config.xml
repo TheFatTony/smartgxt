@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<appication>
+		<configuration>com.smartgxt.showcase.server.ShowcaseConfiguration</configuration>
+		<log_dir>C:/tmp</log_dir>
+		<max_active_threads>1</max_active_threads>
+		<max_threads_wait>5</max_threads_wait>
+		<buffers_size>524288</buffers_size>
+		<threads_wait_time>1000</threads_wait_time>
+		<session_timeout>120</session_timeout>
+		<kill_task_interval>60</kill_task_interval>
+	</appication>
+	<oracle default="home">
+        	<connection connectionName="home">jdbc:oracle:thin:@5.20.34.226:1521:XE</connection>
+	</oracle>
+</config>

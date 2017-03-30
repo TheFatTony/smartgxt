@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Template" default="build_template" basedir=".">
+
+	<property file="build.properties" />
+	<property file="template.properties" />
+
+	<!--<taskdef resource="ise/antelope/tasks/antlib.xml">
+		<classpath path="${antelopetasks}/antelopetasks-3.2.10.jar" />
+	</taskdef>-->
+
+
+	<target name="build_template" description="">
+		<echo>"build_template" target started...</echo>
+
+		<sql classpath="${oracle.jdbc}/ojdbc6.jar" driver="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@${sgxt.url}" userid="sgxt" password="${sgxt.psswd}">
+			INSERT INTO applications (id, name) VALUES (applications_id_seq.nextval, '${project.id}') ;
+			commit;
+		</sql>
+
+		<mkdir dir="${folder.to}/${project.name}" />
+		<!--<propertyregex property="package.path" input="$(project.package)" regexp="." replace="/" global="true" />-->
+		<mkdir dir="${folder.to}/${project.name}/src/${package.path}" />
+		<mkdir dir="${folder.to}/${project.name}/src/${package.path}/client" />
+		<mkdir dir="${folder.to}/${project.name}/src/${package.path}/public" />
+		<mkdir dir="${folder.to}/${project.name}/src/${package.path}/server" />
+		<mkdir dir="${folder.to}/${project.name}/src/${package.path}/shared" />
+		<mkdir dir="${folder.to}/${project.name}/war" />
+		<mkdir dir="${folder.to}/${project.name}/war/META-INF" />
+		<mkdir dir="${folder.to}/${project.name}/war/WEB-INF" />
+		<mkdir dir="${folder.to}/${project.name}/war/WEB-INF/lib" />
+
+		<copy file="empty/src/Template.gwt.xml" tofile="${folder.to}/${project.name}/src/${package.path}/${project.name}.gwt.xml">
+			<filterchain>
+				<replacetokens>
+					<token key="package" value="${project.package}" />
+					<token key="name" value="${project.name}" />
+					<token key="id" value="${project.id}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy file="empty/src/Template.java" tofile="${folder.to}/${project.name}/src/${package.path}/client/${project.name}.java">
+			<filterchain>
+				<replacetokens>
+					<token key="package" value="${project.package}" />
+					<token key="name" value="${project.name}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy file="empty/src/TemplateDesktop.java" tofile="${folder.to}/${project.name}/src/${package.path}/client/${project.name}Desktop.java">
+			<filterchain>
+				<replacetokens>
+					<token key="package" value="${project.package}" />
+					<token key="name" value="${project.name}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy file="empty/war/icon128.png" todir="${folder.to}/${project.name}/war" />
+		<copy file="empty/war/icon32.png" todir="${folder.to}/${project.name}/war" />
+
+		<copy file="empty/war/index.html" tofile="${folder.to}/${project.name}/war/index.html">
+			<filterchain>
+				<replacetokens>
+					<token key="id" value="${project.id}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy file="empty/war/META-INF/MANIFEST.MF" tofile="${folder.to}/${project.name}/war/META-INF/MANIFEST.MF">
+			<filterchain>
+				<replacetokens>
+					<token key="id" value="${project.id}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy file="empty/war/WEB-INF/web.xml" tofile="${folder.to}/${project.name}/war/WEB-INF/web.xml">
+			<filterchain>
+				<replacetokens>
+					<token key="id" value="${project.id}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy file="empty/public/config.xml" tofile="${folder.to}/${project.name}/src/${package.path}/public/config.xml">
+			<filterchain>
+				<replacetokens>
+					<token key="package" value="${project.package}" />
+					<token key="name" value="${project.name}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+
+		<copy file="empty/src/TemplateConfig.java" tofile="${folder.to}/${project.name}/src/${package.path}/server/${project.name}Config.java">
+			<filterchain>
+				<replacetokens>
+					<token key="package" value="${project.package}" />
+					<token key="name" value="${project.name}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy todir="${folder.to}/${project.name}/war//gxt">
+			<fileset dir="${gxt.sdk}/resources" />
+		</copy>
+		<copy todir="${folder.to}/${project.name}/war//smartgxt">
+			<fileset dir="${smartgxt.sdk}/resources" />
+		</copy>
+
+		<copy file="empty/eclipse/classpath" tofile="${folder.to}/${project.name}/.classpath" />
+		<copy file="empty/eclipse/project" tofile="${folder.to}/${project.name}/.project">
+			<filterchain>
+				<replacetokens>
+					<token key="name" value="${project.name}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy file="empty/application.properties" todir="${folder.to}/${project.name}/" />
+		<copy file="empty/build.properties" todir="${folder.to}/${project.name}/" />
+		<copy file="empty/build.xml" todir="${folder.to}/${project.name}/" />
+
+		<echo>"build_template" target ended.</echo>
+	</target>
+
+</project>

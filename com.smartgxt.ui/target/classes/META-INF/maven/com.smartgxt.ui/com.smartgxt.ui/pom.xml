@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>smartgxt-parent</artifactId>
+		<groupId>com.smartgxt</groupId>
+		<version>0.0.2</version>
+	</parent>
+	<groupId>com.smartgxt.ui</groupId>
+	<artifactId>com.smartgxt.ui</artifactId>
+	<name>com.smartgxt.ui</name>
+	<packaging>jar</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>com.smartgxt.core</groupId>
+			<artifactId>com.smartgxt.core</artifactId>
+			<version>0.0.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sencha.gxt</groupId>
+			<artifactId>gxt</artifactId>
+			<version>3.0.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>smartgxt-ui</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<!-- <resource> -->
+			<!-- <directory>src/main/resources</directory> -->
+			<!-- </resource> -->
+		</resources>
+	</build>
+</project>

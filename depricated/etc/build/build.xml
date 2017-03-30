@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="TEST" default="all" basedir=".">
+
+	<property file="build.properties" />
+	<property file="application.properties" />
+
+	<taskdef resource="ise/antelope/tasks/antlib.xml">
+		<classpath path="${antelopetasks}/antelopetasks-3.2.10.jar" />
+	</taskdef>
+
+	<target name="all" description="Default point" depends="publish" />
+	<target name="clear" description="Prepare project to transfer" depends="clean, clean_source" />
+	<target name="publish" description="Build and deploy war file" depends="distr, deploy" />
+	<target name="publish_libs" description="Build and deploy war file" depends="distr_libs, deploy" />
+	<target name="distr" description="Build war file" depends="build, dist, war" />
+	<target name="distr_libs" description="Build war file" depends="build, dist, libs, war" />
+	<target name="build" description="Compile source code" depends="build_number, clean, dirs, javac, gwtc" />
+	<target name="webapp" description="Make a Chrome CRX file" depends="distr, chrome_app" />
+	<target name="webapp_libs" description="Make a Chrome CRX file" depends="distr_libs, chrome_app" />
+
+	<path id="project.classpath">
+		<pathelement location="${gwt.sdk}/gwt-user.jar" />
+		<pathelement location="${gxt.sdk}/gxt-2.2.4-gwt22.jar" />
+		<!--<pathelement location="${gwtent.sdk}/gwtent.jar" />-->
+		<pathelement location="${sqlite.jdbc}/sqlite-jdbc-3.7.2.jar" />
+		<pathelement location="${gwt.crypto}/gwt-crypto-1.0.3.jar" />
+		<pathelement location="${poi.sdk}/poi-3.7-20101029.jar" />
+		<pathelement location="${poi.sdk}/poi-ooxml-3.7-20101029.jar" />
+		<pathelement location="${fop.sdk}/build/fop.jar" />
+		<pathelement location="${oracle.publisher}/xdocore.jar" />
+		<pathelement location="${oracle.publisher}/xdoparser.jar" />
+		<pathelement location="${oracle.jdbc}/ojdbc6.jar" />
+		<pathelement location="${oracle.jdbc}/orai18n.jar" />
+		<pathelement location="${smartgxt.sdk}/src" />
+		<pathelement location="${build}/WEB-INF/classes" />
+
+		<fileset dir="${gwt.sdk}" includes="gwt-dev.jar" />
+	</path>
+
+	<target name="build_number" description="Application version auto increment">
+		<echo>"build_number" target started...</echo>
+		<propertyfile file="application.properties" comment="Build Number for ANT.">
+			<entry key="build.number" type="int" operation="+" default="1" />
+		</propertyfile>
+		<property name="app.version" value="${major.minor}.${build.number}" />
+		<echo message="Generated version: ${app.version}" />
+		<echo>"build_number" target ended.</echo>
+	</target>
+
+	<target name="clean" description="Clear compile directories">
+		<echo>"clean" target started...</echo>
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<echo>"clean" target ended.</echo>
+	</target>
+
+	<target name="clean_source" description="Clear working directories">
+		<echo>"clean_source" target started...</echo>
+		<delete dir="${war}/${app.id}" />
+		<echo>"clean_source" target ended.</echo>
+	</target>
+
+	<target name="dirs" description="Create working directories">
+		<echo>"dirs" target started...</echo>
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/gxt" />
+		<mkdir dir="${build}/smartgxt" />
+		<mkdir dir="${build}/WEB-INF/classes" />
+		<mkdir dir="${build}/WEB-INF/lib" />
+		<mkdir dir="${build}/META-INF" />
+		<mkdir dir="${dist}" />
+		<mkdir dir="${dist}/WebApp/${app.id}" />
+		<echo>"dirs" target ended.</echo>
+	</target>
+
+	<target name="javac" description="Compile Java Classes">
+		<echo>"javac" target started...</echo>
+		<tstamp />
+		<javac failonerror="true" srcdir="${source.root}:${smartgxt.sdk}/src" includes="**" encoding="utf-8" destdir="${build}/WEB-INF/classes" debug="true" debuglevel="${debuglevel}" source="${source}" target="${target}">
+			<classpath refid="project.classpath" />
+		</javac>
+		<echo>"javac" target ended.</echo>
+	</target>
+
+	<target name="gwtc" description="Compile JavaScript">
+		<echo>"gwtc" target started...</echo>
+		<tstamp />
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="src" />
+				<path refid="project.classpath" />
+			</classpath>
+			<arg value="-ea" />
+			<arg value="-style" />
+			<arg value="${compiler.style}" />
+			<arg value="-optimize" />
+			<arg value="${compiler.optimize}" />
+			<arg value="-war" />
+			<arg value="${build}" />
+			<arg value="${app.root}" />
+		</java>
+		<echo>"gwtc" target ended.</echo>
+	</target>
+
+	<target name="dist" description="Add libraries and other files">
+		<echo>"dist" target started...</echo>
+		<copy todir="${build}/gxt">
+			<fileset dir="${gxt.sdk}/resources" />
+		</copy>
+		<copy todir="${build}/smartgxt">
+			<fileset dir="${smartgxt.sdk}/resources" />
+		</copy>
+		<copy todir="${build}/WEB-INF" file="${war}/WEB-INF/web.xml" />
+		<copy file="${war}/index.html" tofile="${build}/index.html">
+			<filterchain>
+				<replacetokens>
+					<token key="version" value="${app.version}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+		<copy todir="${build}" file="${war}/icon32.png" />
+		<copy todir="${build}" file="${war}/icon128.png" />
+		<delete dir="${build}/WEB-INF/classes/${app.path}/rebind" />
+		<delete dir="${build}/WEB-INF/classes/${app.path}/client" />
+		<delete dir="${build}/WEB-INF/classes/${app.path}/constructor/client" />
+		<delete dir="${build}/WEB-INF/classes/${app.path}/${app.id}/client" />
+		<copy todir="${dist}" file="${build}/${app.id}/config.xml" />
+		<copy file="${build}/${app.id}/config.xml" tofile="${dist}/config.xml" />
+		<delete file="${build}/${app.id}/config.xml" />
+		<echo>"dist" target ended.</echo>
+	</target>
+
+	<target name="libs" description="copy libs to distr">
+		<copy todir="${build}/WEB-INF/lib" file="${gxt.sdk}/gxt-2.2.4-gwt22.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.jdbc}/ojdbc6.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.jdbc}/orai18n.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.jdbc}/orai18n-mapping.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.publisher}/i18nAPI_v3.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.publisher}/versioninfo.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.publisher}/xdocore.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.publisher}/xdoparser.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.publisher}/xerces.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${oracle.publisher}/xmlparserv2.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${poi.sdk}/poi-3.7-20101029.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${poi.sdk}/poi-ooxml-3.7-20101029.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${poi.sdk}/poi-ooxml-schemas-3.7-20101029.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${poi.sdk}/poi-scratchpad-3.7-20101029.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/build/fop.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/avalon-framework-4.2.0.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/batik-all-1.7.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/commons-io-1.3.1.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/commons-logging-1.0.4.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/serializer-2.7.0.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/xalan-2.7.0.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/xercesImpl-2.7.1.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/xml-apis-1.3.04.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/xml-apis-ext-1.3.04.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${fop.sdk}/lib/xmlgraphics-commons-1.4.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${sqlite.jdbc}/sqlite-jdbc-3.7.2.jar" />
+		<copy todir="${build}/WEB-INF/lib" file="${gwt.crypto}/gwt-crypto-1.0.3.jar" />
+	</target>
+
+	<target name="war" description="Create Application Web Archive">
+		<echo>"war" target started...</echo>
+		<manifest file="${build}/META-INF/MANIFEST.MF">
+			<attribute name="Built-By" value="${user.name}" />
+			<attribute name="App-Name" value="${app.id}" />
+			<attribute name="Specification-Title" value="${spec.title}" />
+			<attribute name="Specification-Version" value="${spec.version}" />
+			<attribute name="Specification-Vendor" value="${spec.vendor}" />
+			<attribute name="Implementation-Title" value="${app.name}" />
+			<attribute name="Implementation-Version" value="${app.version}" />
+			<attribute name="Implementation-Vendor" value="${impl.vendor}" />
+		</manifest>
+		<zip destfile="${dist}/${app.id}.war" basedir="${build}" />
+		<echo>"war" target ended.</echo>
+	</target>
+
+	<target name="chrome_app" description="Create Manifest For Chrome Application">
+		<echo>"chrome_app" target started...</echo>
+		<copy file="${war}/manifest.json" tofile="${dist}/WebApp/${app.id}/manifest.json">
+			<filterchain>
+				<!-- TODO russian support -->
+				<replacetokens>
+					<token key="version" value="${app.version}" />
+					<token key="title" value="${app.title}" />
+					<token key="server" value="${deploy.server}" />
+					<token key="app_id" value="${app.id}" />
+					<token key="port" value="${deploy.port}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+		<copy todir="${dist}/WebApp/${app.id}/" file="${war}/icon32.png" />
+		<copy todir="${dist}/WebApp/${app.id}/" file="${war}/icon128.png" />
+
+		<available file="rctest.pem" property="check-file-exists" />
+		<echo>${check-file-exists}</echo>
+
+		<if name="check-file-exists" value="true">
+			<echo>file exists</echo>
+			<exec executable="chrome">
+				<arg line="--pack-extension=${project.path}/${dist}/WebApp/${app.id} --pack-extension-key=${project.path}/${app.id}.pem" />
+			</exec>
+			<else>
+				<echo>file not exists</echo>
+				<exec executable="chrome">
+					<arg line="--pack-extension=${project.path}/${dist}/WebApp/${app.id}" />
+				</exec>
+				<move file="${dist}/WebApp/${app.id}.pem" tofile="${app.id}.pem" />
+			</else>
+		</if>
+
+		<echo>"chrome_app" target ended.</echo>
+	</target>
+
+
+	<target name="deploy" description="Deploy Application Web Archive file on server">
+		<echo>"deploy" target started...</echo>
+		<exec executable="pscp">
+			<arg line="-pw ${deploy.password} ${dist}/${app.id}.war ${deploy.user}@${deploy.server}:${deploy.path}" />
+		</exec>
+		<echo>"deploy" target ended.</echo>
+	</target>
+</project>

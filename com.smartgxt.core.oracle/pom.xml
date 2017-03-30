@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>smartgxt-parent</artifactId>
+		<groupId>com.smartgxt</groupId>
+		<version>0.0.2</version>
+	</parent>
+	<groupId>com.smartgxt.core.oracle</groupId>
+	<artifactId>com.smartgxt.core.oracle</artifactId>
+	<name>com.smartgxt.core.oracle</name>
+	<packaging>jar</packaging>
+	<build>
+		<finalName>smartgxt-core-oracle</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<!-- <resource> -->
+			<!-- <directory>src/main/resources</directory> -->
+			<!-- </resource> -->
+		</resources>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.smartgxt.ui</groupId>
+			<artifactId>com.smartgxt.ui</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Users/anton/SkyDrive/Projects/smartgxt-0.0/lib/instantclient_11_2/ojdbc6.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>orai18n</artifactId>
+			<version>11.2.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Users/anton/SkyDrive/Projects/smartgxt-0.0/lib/instantclient_11_2/orai18n.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>orai18n-mapping</artifactId>
+			<version>11.2.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Users/anton/SkyDrive/Projects/smartgxt-0.0/lib/instantclient_11_2/orai18n-mapping.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,14 @@
+<module rename-to='showcase'>
+	<inherits name='com.smartgxt.core.Core' />
+	<inherits name='com.smartgxt.incubator.Incubator' />
+	<inherits name="com.sencha.gwt.uibinder.UiBinder" />
+
+	<replace-with
+		class="com.smartgxt.core.client.widget.windowmanager.WindowManager">
+		<when-type-is class="com.sencha.gxt.widget.core.client.WindowManager" />
+	</replace-with>
+
+	<entry-point class='com.smartgxt.showcase.client.Showcase' />
+	<source path='client' />
+	<source path='shared' />
+</module>

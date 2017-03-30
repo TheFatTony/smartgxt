@@ -1,0 +1,22 @@
+﻿{
+  "name": "@title@",
+  "version": "@version@",
+  "update_url": "http://myhost.com/mytestextension/updates.xml",
+  "app": {
+    "urls": [
+      "*://@server@/@app_id@"
+    ],
+    "launch": {
+      "web_url": "http://@server@:@port@/@app_id@/",
+	  "container": "panel"
+    }
+  },
+  "icons": {
+    "128": "icon128.png",
+	"32": "icon32.png"
+  },
+  "permissions": [
+    "unlimitedStorage",
+    "notifications"
+  ]
+}

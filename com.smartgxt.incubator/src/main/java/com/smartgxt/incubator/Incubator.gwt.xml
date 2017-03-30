@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<inherits name='com.smartgxt.ui.UI' />
+	<inherits name='com.smartgxt.core.oracle.Oracle' />
+	<source path='client' />
+</module>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>remoteServlet</servlet-name>
+		<servlet-class>com.smartgxt.server.RemoteGwtServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>remoteServlet</servlet-name>
+		<url-pattern>/@id@/gwtservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>rawServlet</servlet-name>
+		<servlet-class>com.smartgxt.server.RemoteHttpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rawServlet</servlet-name>
+		<url-pattern>/@id@/httpservlet</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

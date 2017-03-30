@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<inherits name='com.google.gwt.user.User' />
+
+	<servlet path="/gwtservlet" class="com.smartgxt.core.server.RemoteGwtServlet" />
+	<servlet path="/httpservlet" class="com.smartgxt.core.server.RemoteHttpServlet" />
+	<generate-with class="com.smartgxt.core.rebind.PrototypeGenerator">
+		<when-type-assignable class="com.smartgxt.core.client.prototypes.Prototype" />
+	</generate-with>
+
+	<source path='client' />
+	<source path='service' />
+	<source path='shared' />
+</module>

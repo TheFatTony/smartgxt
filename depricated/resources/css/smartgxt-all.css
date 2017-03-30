@@ -1,0 +1,74 @@
+/**
+ * Bordered Toolbar Buttons
+ */
+.ux-toolbar .x-btn .x-btn-tl {
+    background-position: -6px 0;
+}
+
+.ux-toolbar .x-btn .x-btn-tr {
+    background-position: -9px 0;
+}
+
+.ux-toolbar .x-btn .x-btn-tc {
+    background-position: 0 -9px;
+}
+
+.ux-toolbar .x-btn .x-btn-ml {
+    background-position: -6px -24px;
+}
+
+.ux-toolbar .x-btn .x-btn-mr {
+    background-position: -9px -24px;
+}
+
+.ux-toolbar .x-btn .x-btn-mc {
+    background-position: 0 -2168px;
+}
+
+.ux-toolbar .x-btn .x-btn-bl {
+    background-position: -6px -3px;
+}
+
+.ux-toolbar .x-btn .x-btn-br {
+    background-position: -9px -3px;
+}
+
+.ux-toolbar .x-btn .x-btn-bc {
+    background-position: 0 -18px;
+}
+
+/**
+ * Buttons
+ */
+.ux-button-alignleft .x-btn-text {
+    text-align: left;
+}
+
+/**
+ * Windows Customization section
+ */
+.ux-window-inactive {
+    color: #aaaaaa !important;
+}
+
+/**
+ *  Grid Customization section
+ */
+.ux-grid .x-grid3-row-alt {
+    background-color: #ebebeb;
+}
+
+/**
+ *  Desktop Customization section
+ */
+.ux-desktop .x-panel-body {
+    background-color: #e5eaff;
+}
+
+/**
+ *  Information Panels section
+ */
+.ux-information-panel {
+    background-color: #e5eaff;
+}
+

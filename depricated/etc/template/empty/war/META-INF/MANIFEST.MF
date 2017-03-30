@@ -1,0 +1,3 @@
+App-Name: @id@
+Implementation-Version: @version@
+

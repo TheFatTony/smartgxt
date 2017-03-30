@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='smartgxt'>
+	<inherits name='com.extjs.gxt.ui.GXT' />
+	<inherits name='com.extjs.gxt.themes.Themes' />
+	<inherits name='com.extjs.gxt.charts.Chart' />
+	<inherits name='com.googlecode.gwt.crypto.Crypto' />
+	<inherits name="com.smartgxt.emul.Emulation" />
+	<!-- <super-source path="emul" /> -->
+	<servlet path="/gwtservlet" class="com.smartgxt.server.RemoteGwtServlet" />
+	<servlet path="/httpservlet" class="com.smartgxt.server.RemoteHttpServlet" />
+
+	<generate-with class="com.smartgxt.rebind.SecurityGenerator">
+		<when-type-assignable
+			class="com.smartgxt.client.prototypes.SecurityPrototype" />
+	</generate-with>
+
+	<generate-with class="com.smartgxt.rebind.PrototypeGenerator">
+		<when-type-assignable class="com.smartgxt.client.prototypes.Prototype" />
+	</generate-with>
+
+	<source path='client' />
+	<source path='service' />
+	<source path='commons' />
+	<source path='shared' />
+	<public path='public' />
+
+</module>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='@id@'>
+	<inherits name='com.smartgxt.SmartGXT' />
+	<inherits name='com.smartgxt.constructor.Constructor' />
+	<extend-property name="locale" values="ru" />
+
+	<entry-point class='@package@.client.@name@' />
+
+	<source path='client' />
+	<source path='shared' />
+	<public path='public' />
+
+</module>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>smartgxt-parent</artifactId>
+		<groupId>com.smartgxt</groupId>
+		<version>0.0.2</version>
+	</parent>
+	<groupId>com.smartgxt.incubator</groupId>
+	<artifactId>com.smartgxt.incubator</artifactId>
+	<name>com.smartgxt.incubator</name>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.smartgxt.ui</groupId>
+			<artifactId>com.smartgxt.ui</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.smartgxt.core.oracle</groupId>
+			<artifactId>com.smartgxt.core.oracle</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>smartgxt-incubator</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<!-- <resource> -->
+			<!-- <directory>src/main/resources</directory> -->
+			<!-- </resource> -->
+		</resources>
+
+	</build>
+
+</project>

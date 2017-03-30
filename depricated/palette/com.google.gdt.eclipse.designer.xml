@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<addCategory
+		id="custom_1309624554467"
+		name="SmartGXT layouts"
+		description=""
+		visible="true"
+		open="true"
+		nextCategory="com.google.gdt.eclipse.designer.GXT.panel"/>
+	<addComponent
+		id="custom_1309624587390"
+		name="AbsoluteLayout"
+		visible="true"
+		class="com.smartgxt.client.ui.widgets.layouts.AbsoluteLayout"
+		category="custom_1309624554467"/>
+	<addComponent
+		id="custom_1309624601897"
+		name="BorderLayout"
+		visible="true"
+		class="com.smartgxt.client.ui.widgets.layouts.BorderLayout"
+		category="custom_1309624554467"/>
+	<addComponent
+		id="custom_1309624617507"
+		name="FitLayout"
+		visible="true"
+		class="com.smartgxt.client.ui.widgets.layouts.FitLayout"
+		category="custom_1309624554467"/>
+	<addCategory
+		id="custom_1309625092209"
+		name="SmartGXT forms"
+		description=""
+		visible="true"
+		open="true"
+		nextCategory="com.google.gdt.eclipse.designer.GXT.panel"/>
+	<addComponent
+		id="custom_1309625128687"
+		name="LabeledField"
+		visible="true"
+		class="com.smartgxt.client.ui.widgets.forms.fields.LabeledField"
+		category="custom_1309625092209"/>
+	<removeEntry
+		id="custom_1309625128687"/>
+	<addComponent
+		id="custom_1309625219767"
+		name="LabelField"
+		visible="true"
+		class="com.smartgxt.client.ui.widgets.forms.fields.LabelField"
+		category="custom_1309625092209"/>
+	<addCategory
+		id="custom_1309625722240"
+		name="SmartGXT widgets"
+		description=""
+		visible="true"
+		open="true"
+		nextCategory="custom_1309624554467"/>
+	<addComponent
+		id="custom_1309625746324"
+		name="Image"
+		visible="true"
+		class="com.smartgxt.client.ui.widgets.Image"
+		category="custom_1309625722240"/>
+</commands>

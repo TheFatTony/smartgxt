@@ -1,0 +1,14 @@
+
+/**
+ *  Desktop Customization section
+ */
+.ux-desktop .x-panel-body {
+    background-color: #f0f4f5 !important;
+}
+
+/**
+ *  Information Panels section
+ */
+.ux-information-panel {
+    background-color: #f0f4f5 !important;
+}
